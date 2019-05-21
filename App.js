@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, ListView } from 'react-native';
+import { Text, View, StyleSheet, ListView, Linking } from 'react-native';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -11,6 +11,7 @@ const alex = {
   address: "128 Fairview Mall Drive",
   email: "moreira.alx@gmail.com",
   phone: "(647) 833 5050)",
+  linkedin: "moreiraalx",
   skills: [
       { name: "Fluent English and Portuguese", time: "0" },
       { name: "Unity", time: "8" }, 
@@ -74,6 +75,18 @@ class HomeScreen extends React.Component {
                 {alex.phone}
               </Text>
             </View>
+
+            <View style={styles.tableItem}>
+            
+              <Text style={styles.fieldName}>
+                Linkedin: 
+              </Text>
+            </View>
+
+            <Text style={[styles.fieldValue, {color: 'blue'}]}
+                  onPress={() => Linking.openURL('https://www.linkedin.com/in/' + alex.linkedin)}>
+              { alex.linkedin }
+            </Text>
             
             <View style={styles.tableItem}>
               <Text style={styles.fieldName}>
@@ -110,9 +123,9 @@ class HomeScreen extends React.Component {
                 </View>
               </View>
             }/>
+
+
         </View>
-
-
       </View>
     );
   }
