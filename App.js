@@ -77,16 +77,17 @@ class HomeScreen extends React.Component {
             </View>
 
             <View style={styles.tableItem}>
-            
               <Text style={styles.fieldName}>
                 Linkedin: 
               </Text>
             </View>
 
-            <Text style={[styles.fieldValue, {color: 'blue'}]}
-                  onPress={() => Linking.openURL('https://www.linkedin.com/in/' + alex.linkedin)}>
-              { alex.linkedin }
-            </Text>
+            <View style={styles.tableItem}>
+              <Text style={[styles.fieldValue, {color: 'blue'}]}
+                    onPress={() => Linking.openURL('https://www.linkedin.com/in/' + alex.linkedin)}>
+                { alex.linkedin }
+              </Text>
+            </View>
             
             <View style={styles.tableItem}>
               <Text style={styles.fieldName}>
