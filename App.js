@@ -3,8 +3,10 @@ import { Text, View, StyleSheet, ListView, Linking } from 'react-native';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconWithBadge from './IconWithBadge';
+import HomeScreen from './HomeScreen'
+import WorkScreen from './WorkScreen'
 
-const alex = {
+global.alex = {
   name: "Alexandre Taitson Moreira",
   occupation: "Developer",
   address: "128 Fairview Mall Drive",
@@ -69,177 +71,7 @@ const alex = {
   education: { name: "Computer Science BSc", college: "Instituto de Ensino Superior de Brasilia", location: "Brasilia, DF Brazil", start: "Jan 2008", end: "Jan 2010" }
 
   }
-
-class HomeScreen extends React.Component {
-
-  constructor(props) {
-    super(props);
-    
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(alex.skills),
-    }; 
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.resumeTitle}>
-              {alex.name}
-        </Text>
-        <View style={styles.hrLine} />
-        <Text style={styles.occupationField}>
-              {alex.occupation}
-        </Text>
-        <View style={[styles.contactContainer, {flex: 1}]}>
-          <Text style={styles.informationTitle}>
-            Contact
-          </Text>
-
-          <View style={styles.tableContainerContact}>
-            <View style={styles.tableItem}>
-              <Text style={styles.fieldName}>
-                Email: 
-              </Text>
-            </View>
-            <View style={styles.tableItem}>
-              <Text style={styles.fieldValue}>
-                {alex.email}
-              </Text>
-            </View>
-            
-            <View style={styles.tableItem}>
-              <Text style={styles.fieldName}>
-                Phone: 
-              </Text>
-            </View>
-            <View style={styles.tableItem}>
-              <Text style={styles.fieldValue}>
-                {alex.phone}
-              </Text>
-            </View>
-
-            <View style={styles.tableItem}>
-              <Text style={styles.fieldName}>
-                Linkedin: 
-              </Text>
-            </View>
-
-            <View style={styles.tableItem}>
-              <Text style={[styles.fieldValue, {color: 'blue'}]}
-                    onPress={() => Linking.openURL('https://www.linkedin.com/in/' + alex.linkedin)}>
-                { alex.linkedin }
-              </Text>
-            </View>
-            
-            <View style={styles.tableItem}>
-              <Text style={styles.fieldName}>
-                Address: 
-              </Text>
-            </View>
-            <View style={styles.tableItem}>
-              <Text style={styles.fieldValue}>
-                {alex.address}
-              </Text>
-            </View>
-
-            
-          </View>
-
-
-          <View style={styles.tableContainerSkills}>
-            <View style={styles.tableItem}>
-              <Text style={[styles.informationTitle, { marginLeft: -10 }]}>
-                Skills
-            </Text>
-            </View>
-            <View style={styles.tableItem}>
-              <Text style={[styles.informationTitle, styles.fieldValue]}>
-                Experience
-              </Text>
-            </View>
-          </View>
-
-          
-            <ListView
-              style={[styles.listViewContainer, {flex: 5}]}
-              dataSource={this.state.dataSource}
-              renderRow={(data) => 
-                <View style={styles.tableContainer}>
-                  <View style={styles.tableItem}>
-                    <Text style={styles.fieldName}>
-                      {data.name}
-                    </Text>
-                  </View>
-                  <View style={styles.tableItem}>
-                    <Text style={styles.fieldValue}>
-                      { data.time > 0 ? data.time + " years" : "" }
-                    </Text>
-                  </View>
-                </View>
-              }/>
-
-        </View>
-      </View>
-    );
-  }
-}
-
-class WorkScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSourceWork: ds.cloneWithRows(alex.workExperience),
-    }; 
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.resumeTitle}>
-              {alex.name}
-        </Text>
-        <View style={styles.hrLine} />
-        <Text style={styles.occupationField}>
-              {alex.occupation}
-        </Text>
-        <View style={[styles.contactContainer, {flex: 1}]}>
-          <Text style={styles.informationTitle}>
-            Work Experience
-          </Text>
-
-
-
-          <ListView
-            style={[styles.listViewContainer, {flex: 5}]}
-            dataSource={this.state.dataSourceWork}
-            renderRow={(data) => 
-              <View style={styles.tableContainer}>
-                <View style={styles.tableItem}>
-                  <Text style={styles.fieldName}>
-                    {data.job}
-                  </Text>
-                </View>
-                <View style={styles.tableItem}>
-                  <Text style={styles.fieldValue}>
-                    { data.start + " - " + data.end }
-                  </Text>
-                </View>
-                
-                <View style={styles.workTableItemColSpan2}>
-                  <Text>{'\u2022' + "  " + data.activities}</Text>
-                </View>
-
-              </View>
-            }/>
-        </View>
-      </View>
-    );
-  }
-}
-
+ 
 class EducationScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -264,9 +96,6 @@ class EducationScreen extends React.Component {
           <Text style={styles.informationTitle}>
             Work Experience
           </Text>
-
-
-
           <ListView
             style={[styles.listViewContainer, {flex: 5}]}
             dataSource={this.state.dataSourceWork}
@@ -281,12 +110,10 @@ class EducationScreen extends React.Component {
                   <Text style={styles.fieldValue}>
                     { data.start + " - " + data.end }
                   </Text>
-                </View>
-                
+                </View>                
                 <View style={styles.workTableItemColSpan2}>
                   <Text>{'\u2022' + "  " + data.activities}</Text>
                 </View>
-
               </View>
             }/>
         </View>
@@ -311,6 +138,8 @@ const TabNavigator = createBottomTabNavigator(
         const { routeName } = navigation.state;
         let IconComponent = MaterialIcons;
         let iconName;
+
+        console.log(navigation.state);
         if (routeName === 'Me') {
           iconName = `account-circle`;
         } else if (routeName === 'Work') {
@@ -320,6 +149,11 @@ const TabNavigator = createBottomTabNavigator(
         }
 
         return <IconComponent name={iconName} size={25} color={tintColor} />;
+      },
+      tabBarOnPress: ({ navigation, defaultHandler }) => {
+        navigation.setParams({ alex: alex })
+        console.log('onPress:', navigation.setParams({ alex: alex }));
+        defaultHandler()
       },
     }),
     tabBarOptions: {
@@ -340,8 +174,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginTop: 5,
-    flex: 1,
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start'
+  },
+  tableContainerWork: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 5,
+    flexDirection: 'column',
     flexWrap: 'wrap',
     alignItems: 'flex-start'
   },
